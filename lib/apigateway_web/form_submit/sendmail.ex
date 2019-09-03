@@ -6,7 +6,7 @@ defmodule ApigatewayWeb.FormSubmit.Sendmail do
     new_email()
     |> from("noreply@kaashyapan.com")
     |> put_to(to_)
-    |> bcc("vichitraveeryan.gmail.com")
+    |> bcc("vichitraveeryan@gmail.com")
     |> put_subject(host, form_)
     |> put_reply_to(form_)
     |> put_assigns(form_)
