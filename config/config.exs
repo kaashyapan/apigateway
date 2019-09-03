@@ -9,7 +9,7 @@ use Mix.Config
 
 # Configures the endpoint
 config :apigateway, ApigatewayWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: "0.0.0.0"],
   secret_key_base: "PkN54+Nki9bylGWLK8iwgKUIB6sV5slfgbVMevdlLEZ6BpzAni/kM1yfuMJP0WQJ",
   render_errors: [view: ApigatewayWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Apigateway.PubSub, adapter: Phoenix.PubSub.PG2]
