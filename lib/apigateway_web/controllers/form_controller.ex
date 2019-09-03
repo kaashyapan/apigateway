@@ -9,6 +9,7 @@ defmodule ApigatewayWeb.FormController do
   def submit(conn, params) do
     with {:ok, to_email, ph} <- get_host_params(conn.host),
          {:ok, _} <- filter_honeypot(params) do
+      IO.inspect conn
       Sendmail.send_emails(conn.host, to_email, params)
       Sms.send_sms(conn.host, ph, params)
       json(conn, params)
