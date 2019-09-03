@@ -1,5 +1,4 @@
 defmodule ApigatewayWeb.FormController do
-
   use ApigatewayWeb, :controller
 
   alias ApigatewayWeb.FormSubmit.Sms
@@ -20,9 +19,6 @@ defmodule ApigatewayWeb.FormController do
         |> put_view(ApigatewayWeb.ErrorView)
         |> render("404.json")
     end
-  end
-
-  def
   end
 
   def get_host_params(host = "nangiarkoothu.com") do
