@@ -8,5 +8,5 @@ secret_key_base =
   "wA+tO6BGOylR0EBXT3CyxVCc0jUJ4IcKucHswZzzRXrqOW4dJb6NFg8GXu+BknB8"
 
 config :apigateway, ApigatewayWeb.Endpoint,
-  http: [:inet6, port: String.to_integer(System.get_env("PORT") || "4000")],
+  http: [host: "0.0.0.0", port: String.to_integer(System.get_env("PORT") || "4000")],
   secret_key_base: secret_key_base
