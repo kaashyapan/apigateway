@@ -2,20 +2,16 @@ defmodule ApigatewayWeb.FormController do
 
   use ApigatewayWeb, :controller
 
-  import ApigatewayWeb.FormSubmit.Sms
+  alias ApigatewayWeb.FormSubmit.Sms
   alias ApigatewayWeb.FormSubmit.Sendmail
 
   action_fallback(ApigatewayWeb.FallbackController)
 
   def submit(conn, params) do
-
-    IO.inspect(conn)
-    IO.inspect(params)
-
     with {:ok, to_email, ph} <- get_host_params(conn.host),
          {:ok, _} <- filter_honeypot(params) do
       Sendmail.send_emails(conn.host, to_email, params)
-      send_sms(conn.host, ph, params)
+      Sms.send_sms(conn.host, ph, params)
       json(conn, params)
     else
       {:error, _} ->
@@ -24,6 +20,9 @@ defmodule ApigatewayWeb.FormController do
         |> put_view(ApigatewayWeb.ErrorView)
         |> render("404.json")
     end
+  end
+
+  def
   end
 
   def get_host_params(host = "nangiarkoothu.com") do
