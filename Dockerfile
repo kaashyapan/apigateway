@@ -38,6 +38,9 @@ ENV AWS_ACCESS_KEY_ID="xxx"
 ENV AWS_SECRET_ACCESS_KEY="xxx"
 ENV AWS_DEFAULT_REGION="us-east-1"
 
+# Expose port 4001 for phoenix api
+EXPOSE 4001
+
 #Copy and extract .tar.gz Release file from the previous stage
 COPY --from=build /export/ .
 

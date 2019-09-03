@@ -6,12 +6,10 @@ phases:
       - docker -v
       - echo $HOME
       - echo $PWD
-      - ls -al
       - docker login registry.gitlab.com  -u kaashyapan -p UHs-mCz6zQbyYBPqhaa2
 
   build:
     commands:
-      - echo Build started on `date`
       - echo Building the Docker image...
       - docker build -t apigateway:latest .
       - docker tag apigateway:latest registry.gitlab.com/kaashyapan/apigateway:latest
