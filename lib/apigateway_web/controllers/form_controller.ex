@@ -10,11 +10,11 @@ defmodule ApigatewayWeb.FormController do
     with {:ok, to_email, ph} <- get_host_params(conn.host),
          {:ok, _} <- filter_honeypot(params) do
       IO.inspect conn
-      {_, source} =
-        Enum.filter(conn.req_headers, fn {k, v} -> k == "x-forwarded-for" end)
-        |> List.first
-      Sendmail.send_emails(source, to_email, params)
-      Sms.send_sms(source, ph, params)
+     # {_, source} =
+     #   Enum.filter(conn.req_headers, fn {k, v} -> k == "x-forwarded-for" end)
+     #   |> List.first
+     # Sendmail.send_emails(source, to_email, params)
+     # Sms.send_sms(source, ph, params)
       json(conn, params)
     else
       {:error, _} ->

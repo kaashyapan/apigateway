@@ -38,6 +38,7 @@ defmodule Apigateway.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:distillery, "~> 2.1"},
+      {:cors_plug, "~> 2.0"},
       {:bamboo, "~> 1.3"},
       {:bamboo_ses, "~> 0.1"},
       {:ex_aws, "~> 2.1"},
