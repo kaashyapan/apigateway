@@ -9,12 +9,15 @@ defmodule ApigatewayWeb.FormController do
   def submit(conn, params) do
     with {:ok, to_email, ph} <- get_host_params(conn.host),
          {:ok, _} <- filter_honeypot(params) do
-      IO.inspect conn
-     # {_, source} =
-     #   Enum.filter(conn.req_headers, fn {k, v} -> k == "x-forwarded-for" end)
-     #   |> List.first
-     # Sendmail.send_emails(source, to_email, params)
-     # Sms.send_sms(source, ph, params)
+      source =
+        Enum.filter(conn.req_headers, fn {k, v} -> k == "origin" || k == "referer" end)
+        |> List.first
+        |> case do
+             {_, src} -> src
+             _ -> "unknown"
+           end
+      Sendmail.send_emails(source, to_email, params)
+      Sms.send_sms(source, ph, params)
       json(conn, params)
     else
       {:error, _} ->
@@ -30,8 +33,7 @@ defmodule ApigatewayWeb.FormController do
   end
 
   def get_host_params(host = "gopalamurugan.com") do
-    {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
-    # {:ok, ["secretary@gopalamurugan.com"], ["+918056088898"]}
+    {:ok, ["secretary@gopalamurugan.com"], ["+918056088898"]}
   end
 
   def get_host_params(host = "vibgyorhealthcare.com") do
