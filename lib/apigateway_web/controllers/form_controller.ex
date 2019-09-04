@@ -30,14 +30,17 @@ defmodule ApigatewayWeb.FormController do
 
   def get_host_params(host = "nangiarkoothu.com") do
     {:ok, ["aparnanangiar@nangiarkoothu.com"], ["+919447313864"]}
+    {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
 
   def get_host_params(host = "gopalamurugan.com") do
     {:ok, ["secretary@gopalamurugan.com"], ["+918056088898"]}
+    {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
 
   def get_host_params(host = "vibgyorhealthcare.com") do
     {:ok, ["customercare@vibgyorhealthcare.com"], ["+919384606891"]}
+    {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
 
   def get_host_params(host = "treatmyaneurysm.com") do
