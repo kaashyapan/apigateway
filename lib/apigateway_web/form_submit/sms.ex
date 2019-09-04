@@ -13,7 +13,7 @@ defmodule ApigatewayWeb.FormSubmit.Sms do
     Enum.map(ph, fn phone_no ->
 
       IO.inspect phone_no
-      
+
       SNS.publish(message,
         message_attributes: message_attributes,
         phone_number: phone_no
