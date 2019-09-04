@@ -32,7 +32,9 @@ defmodule ApigatewayWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
 
-  plug CORSPlug,  origin: ~r/.*/
+  plug CORSPlug,
+    origin: ~r/.*/,
+    expose: ["x-api-key"]
 
   plug Plug.Session,
     store: :cookie,
