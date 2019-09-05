@@ -1,0 +1,9 @@
+{application,ex_aws_sns,
+             [{applications,[kernel,stdlib,elixir,logger,ex_aws]},
+              {description,"ex_aws_sns"},
+              {modules,['Elixir.ExAws.SNS','Elixir.ExAws.SNS.Application',
+                        'Elixir.ExAws.SNS.Parsers',
+                        'Elixir.ExAws.SNS.PublicKeyCache']},
+              {registered,[]},
+              {vsn,"2.0.1"},
+              {mod,{'Elixir.ExAws.SNS.Application',[]}}]}.
