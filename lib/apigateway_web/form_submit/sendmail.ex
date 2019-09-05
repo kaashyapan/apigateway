@@ -25,7 +25,7 @@ defmodule ApigatewayWeb.FormSubmit.Sendmail do
   end
 
   defp put_assigns(mail, form_) do
-    form_params = filter_params(form_)
+    form_params = form_ |> filter_params() |> prettify_params()
     assign(mail, :form, form_params)
   end
 
@@ -38,6 +38,10 @@ defmodule ApigatewayWeb.FormSubmit.Sendmail do
     params
     |> Map.drop(keys)
     |> Map.drop(["subject"])
+  end
+
+  defp prettify_params(params) do
+    Enum.map(params, fn {k, v} -> {String.capitalize(k), v} end)
   end
 
   defp put_reply_to(mail, form_) do

@@ -7,6 +7,8 @@ defmodule ApigatewayWeb.FormController do
   action_fallback(ApigatewayWeb.FallbackController)
 
   def submit(conn, params) do
+    IO.inspect(conn.req_headers)
+    IO.inspect(params)
     source =
       Enum.filter(conn.req_headers, fn {k, _v} -> k == "origin" || k == "referer" end)
       |> List.first()
@@ -24,8 +26,6 @@ defmodule ApigatewayWeb.FormController do
          {:ok, to_email, ph} <- get_host_params(source) do
       Task.async(Sendmail, :send_emails, [source, to_email, params])
       Task.async(Sms, :send_sms, [source, ph, params])
-      #Sendmail.send_emails(source, to_email, params)
-      #Sms.send_sms(source, ph, params)
       json(conn, params)
     else
       {:error, _} ->
@@ -38,18 +38,15 @@ defmodule ApigatewayWeb.FormController do
 
   def get_host_params(host) when host == "www.nangiarkoothu.com" or host == "nangiarkoothu.com" do
     {:ok, ["aparnanangiar@nangiarkoothu.com"], ["+919447313864"]}
-    {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
 
   def get_host_params(host) when host == "www.gopalamurugan.com" or host == "gopalamurugan.com" do
     {:ok, ["secretary@gopalamurugan.com"], ["+918056088898"]}
-    {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
 
   def get_host_params(host)
       when host == "www.vibgyorhealthcare.com" or host == "vibgyorhealthcare.com" do
     {:ok, ["customercare@vibgyorhealthcare.com"], ["+919384606891"]}
-    {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
 
   def get_host_params(host)
