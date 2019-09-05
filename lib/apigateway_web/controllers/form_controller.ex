@@ -64,8 +64,15 @@ defmodule ApigatewayWeb.FormController do
   def filter_honeypot(params) do
     Map.fetch(params, "_honey")
     |> case do
-      {:ok, x} -> {:error, x}
-      _ -> {:ok, "nohoney"}
+         {:ok, nil} ->
+           {:ok, "nohoney"}
+         {:ok, x} ->
+           if String.length(x) > 0 do
+             {:error, x}
+           else
+             {:ok, "nohoney"}
+           end
+         _ -> {:ok, "nohoney"}
     end
   end
 end
