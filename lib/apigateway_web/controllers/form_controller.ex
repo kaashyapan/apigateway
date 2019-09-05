@@ -7,19 +7,21 @@ defmodule ApigatewayWeb.FormController do
   action_fallback(ApigatewayWeb.FallbackController)
 
   def submit(conn, params) do
-    with {:ok, to_email, ph} <- get_host_params(conn.host),
-         {:ok, _} <- filter_honeypot(params) do
-      source =
-        Enum.filter(conn.req_headers, fn {k, _v} -> k == "origin" || k == "referer" end)
-        |> List.first
-        |> case do
-             {_, src} -> 
-               re =  ~r/(?<domain>(\w*\.\w*)+)/
-               %{"domain" => domain} = Regex.named_captures(re, src)
-               domain
-             _ -> "unknown"
-           end
+    source =
+      Enum.filter(conn.req_headers, fn {k, _v} -> k == "origin" || k == "referer" end)
+      |> List.first()
+      |> case do
+        {_, src} ->
+          re = ~r/(?<domain>(\w*\.\w*)+)/
+          %{"domain" => domain} = Regex.named_captures(re, src)
+          domain
 
+        _ ->
+          "unknown"
+      end
+
+    with {:ok, _} <- filter_honeypot(params),
+         {:ok, to_email, ph} <- get_host_params(source) do
       Sendmail.send_emails(source, to_email, params)
       Sms.send_sms(source, ph, params)
       json(conn, params)
@@ -32,22 +34,24 @@ defmodule ApigatewayWeb.FormController do
     end
   end
 
-  def get_host_params(host) when (host == "www.nangiarkoothu.com" or host == "nangiarkoothu.com") do
+  def get_host_params(host) when host == "www.nangiarkoothu.com" or host == "nangiarkoothu.com" do
     {:ok, ["aparnanangiar@nangiarkoothu.com"], ["+919447313864"]}
     {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
 
-  def get_host_params(host) when (host == "www.gopalamurugan.com" or host == "gopalamurugan.com") do
+  def get_host_params(host) when host == "www.gopalamurugan.com" or host == "gopalamurugan.com" do
     {:ok, ["secretary@gopalamurugan.com"], ["+918056088898"]}
     {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
 
-  def get_host_params(host) when (host == "www.vibgyorhealthcare.com" or host == "vibgyorhealthcare.com") do
+  def get_host_params(host)
+      when host == "www.vibgyorhealthcare.com" or host == "vibgyorhealthcare.com" do
     {:ok, ["customercare@vibgyorhealthcare.com"], ["+919384606891"]}
     {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
 
-  def get_host_params(host) when (host == "www.treatmyaneurysm.com" or host == "treatmyaneurysm.com") do
+  def get_host_params(host)
+      when host == "www.treatmyaneurysm.com" or host == "treatmyaneurysm.com" do
     {:ok, ["support@treatmyaneurysm.com"], ["+919820078932"]}
   end
 
