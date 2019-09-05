@@ -34,7 +34,7 @@ defmodule ApigatewayWeb.Endpoint do
 
   plug CORSPlug,
     origin: ~r/.*/,
-    expose: ["x-api-key"]
+    headers: ["x-api-key" | CORSPlug.defaults[:headers]]
 
   plug Plug.Session,
     store: :cookie,
