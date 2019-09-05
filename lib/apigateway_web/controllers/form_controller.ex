@@ -22,8 +22,10 @@ defmodule ApigatewayWeb.FormController do
 
     with {:ok, _} <- filter_honeypot(params),
          {:ok, to_email, ph} <- get_host_params(source) do
-      Sendmail.send_emails(source, to_email, params)
-      Sms.send_sms(source, ph, params)
+      Task.async(Sendmail, :send_emails, [source, to_email, params])
+      Task.async(Sms, :send_sms, [source, ph, params])
+      #Sendmail.send_emails(source, to_email, params)
+      #Sms.send_sms(source, ph, params)
       json(conn, params)
     else
       {:error, _} ->
