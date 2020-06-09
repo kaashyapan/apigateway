@@ -8,5 +8,8 @@ defmodule ApigatewayWeb.Router do
   scope "/api", ApigatewayWeb do
     pipe_through :api
     post "/formsubmit", FormController, :submit
+    get "/awsv4", UploadServiceController, :awsv4
+    get "/getfile/:file_name", UploadServiceController, :getfile
+    get "/gettorrent/:file_name", UploadServiceController, :gettorrent
   end
 end

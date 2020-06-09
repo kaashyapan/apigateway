@@ -42,6 +42,7 @@ defmodule Apigateway.MixProject do
       {:bamboo, "~> 1.3"},
       {:bamboo_ses, "~> 0.1"},
       {:ex_aws, "~> 2.1"},
+      {:ex_aws_s3, "~> 2.0"},
       {:ex_aws_sns, "~> 2.0"},
       {:hackney, "~> 1.9"},
       {:poison, "~> 3.0"},
