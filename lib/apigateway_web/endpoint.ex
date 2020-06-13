@@ -33,8 +33,8 @@ defmodule ApigatewayWeb.Endpoint do
   plug Plug.Head
 
   plug CORSPlug,
-    #  origin: ~r/.*/,
-    #  headers: ["x-api-key" | CORSPlug.defaults[:headers]]
+    origin: ~r/.*/,
+    headers: ["x-api-key" | CORSPlug.defaults[:headers]]
     origin: ~r/.*/
 
   plug Plug.Session,
