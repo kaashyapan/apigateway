@@ -34,6 +34,8 @@ config :ex_aws,
     {:awscli, "default", 30}
   ]
 
+config :ex_aws, :s3, region: "ap-south-1"
+
 config :ex_aws, :sns, region: "us-east-1"
 
 config :apigateway, ApigatewayWeb.FormSubmit.Mailer,
