@@ -31,24 +31,34 @@ defmodule ApigatewayWeb.UploadServiceController do
     :crypto.hmac(:sha256, key, data)
   end
 
-  @hours_5 60 * 60 * 5
+  @hours_10 60 * 60 * 10
 
   def getfile(conn, %{"file_name" => file_name}) do
     location = Base.decode64!(file_name)
     [bucket | _rest] = String.split(location, "/")
     key = String.trim(location, bucket <> "/")
+    IO.inspect(bucket)
+    IO.inspect(key)
 
     config =
       ExAws.Config.new(:s3)
       |> Map.put(:host, "s3-accelerate.amazonaws.com")
 
-    ExAws.S3.presigned_url(config, :get, bucket, key,
-      expires_in: @hours_5,
-      virtual_host: true
-    )
+    ExAws.S3.head_object(bucket, key)
+    |> ExAws.request()
     |> case do
-      {:ok, url} ->
-        redirect(conn, external: url)
+      {:ok, _} ->
+        ExAws.S3.presigned_url(config, :get, bucket, key,
+          expires_in: @hours_10,
+          virtual_host: true
+        )
+        |> case do
+          {:ok, url} ->
+            redirect(conn, external: url)
+
+          _ ->
+            text(conn, "File not found. Might have expired")
+        end
 
       _ ->
         text(conn, "File not found. Might have expired")
