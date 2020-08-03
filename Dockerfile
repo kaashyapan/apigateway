@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/kaashyapan/growel/alpine-elixir-phx-aws:latest as build 
+FROM bitwalker/alpine-elixir-phoenix:1.8.1 as build 
 
 ENV MIX_ENV=prod PORT=4001
 
