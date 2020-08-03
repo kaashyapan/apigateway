@@ -9,6 +9,7 @@ defmodule ApigatewayWeb.FormController do
   def submit(conn, params) do
     IO.inspect(conn.req_headers)
     IO.inspect(params)
+
     source =
       Enum.filter(conn.req_headers, fn {k, _v} -> k == "origin" || k == "referer" end)
       |> List.first()
@@ -54,6 +55,12 @@ defmodule ApigatewayWeb.FormController do
     {:ok, ["support@treatmyaneurysm.com"], ["+919820078932"]}
   end
 
+  def get_host_params(host)
+      when host == "www.tavrworldtour.com" or host == "tavrworldtour.com" do
+    # {:ok, ["tavrworldtour@heartteamindia.com"], ["+918056088898"]}
+    {:ok, ["sunder.narayanaswamy@gmail.com"], ["+919962048595"]}
+  end
+
   def get_host_params(_host) do
     {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
@@ -61,15 +68,18 @@ defmodule ApigatewayWeb.FormController do
   def filter_honeypot(params) do
     Map.fetch(params, "_honey")
     |> case do
-         {:ok, nil} ->
-           {:ok, "nohoney"}
-         {:ok, x} ->
-           if String.length(x) > 0 do
-             {:error, x}
-           else
-             {:ok, "nohoney"}
-           end
-         _ -> {:ok, "nohoney"}
+      {:ok, nil} ->
+        {:ok, "nohoney"}
+
+      {:ok, x} ->
+        if String.length(x) > 0 do
+          {:error, x}
+        else
+          {:ok, "nohoney"}
+        end
+
+      _ ->
+        {:ok, "nohoney"}
     end
   end
 end
