@@ -61,6 +61,12 @@ defmodule ApigatewayWeb.FormController do
     # {:ok, ["sunder.narayanaswamy@gmail.com"], ["+919962048595"]}
   end
 
+  def get_host_params(host)
+      when host == "www.theheartvalvecentre.com" or host == "theheartvalvecentre.com" do
+    {:ok, ["info@heartteamindia.com", "secretary@gopalamurugan.com"], ["+918056088898"]}
+    # {:ok, ["sunder.narayanaswamy@gmail.com"], ["+919962048595"]}
+  end
+
   def get_host_params(_host) do
     {:ok, ["vichitraveeryan@gmail.com"], ["+919962048595"]}
   end
