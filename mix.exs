@@ -44,7 +44,7 @@ defmodule Apigateway.MixProject do
       {:ex_aws, "~> 2.1"},
       {:ex_aws_s3, "~> 2.0"},
       {:ex_aws_sns, "~> 2.0"},
-      {:hackney, "~> 1.9"},
+      {:hackney, ">= 1.15.2"},
       {:poison, "~> 3.0"},
       {:sweet_xml, "~> 0.6"},
       {:configparser_ex, "~> 4.0"},
