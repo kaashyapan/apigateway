@@ -15,6 +15,7 @@ defmodule ApigatewayWeb.Router do
 
   scope "/api", ApigatewayWeb do
     pipe_through :api
+    post "/formsubmit2", FormController2, :submit2
     post "/formsubmit1", FormController1, :submit1
     post "/formsubmit", FormController, :submit
     get "/awsv4", UploadServiceController, :awsv4
