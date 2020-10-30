@@ -25,8 +25,8 @@ defmodule ApigatewayWeb.FormSubmit.Sendmail2 do
   def remove_seq_from_string(str) do
     Integer.parse(str)
     |> case do
-      :error -> str
-      {_, rest} -> String.trim_leading(rest, "_")
+      {i, rest} when is_integer(i)-> String.trim_leading(rest, "_")
+      _ -> str
     end
   end
 
