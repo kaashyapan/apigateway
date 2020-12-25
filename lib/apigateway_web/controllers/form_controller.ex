@@ -38,7 +38,7 @@ defmodule ApigatewayWeb.FormController do
   end
 
   def get_host_params(host) when host == "www.nangiarkoothu.com" or host == "nangiarkoothu.com" do
-    {:ok, ["aparnanangiar@nangiarkoothu.com"], ["+919447313864"]}
+    {:ok, ["aparnanangiar@gmail.com"], ["+919447313864"]}
   end
 
   def get_host_params(host) when host == "www.gopalamurugan.com" or host == "gopalamurugan.com" do
